@@ -44,6 +44,54 @@ const TETROMINOES = {
     ],
     color: "red",
   },
+  // Additional shapes
+  U: {
+    shape: [
+      [8, 0, 8],
+      [8, 8, 8],
+    ],
+    color: "pink",
+  },
+  X: {
+    shape: [
+      [0, 9, 0],
+      [9, 9, 9],
+      [0, 9, 0],
+    ],
+    color: "brown",
+  },
+  P: {
+    shape: [
+      [10, 10],
+      [10, 0],
+      [10, 10],
+    ],
+    color: "teal",
+  },
+  Q: {
+    shape: [
+      [11, 11, 0],
+      [0, 11, 0],
+      [0, 11, 11],
+    ],
+    color: "gold",
+  },
+  R: {
+    shape: [
+      [12, 12, 12],
+      [12, 0, 0],
+      [12, 12, 12],
+    ],
+    color: "lime",
+  },
+  W: {
+    shape: [
+      [0, 13, 13],
+      [13, 13, 0],
+      [13, 0, 0],
+    ],
+    color: "maroon",
+  },
 };
 
 export const randomTetromino = () => {
