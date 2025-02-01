@@ -1,22 +1,64 @@
+.tetris-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
 .tetris-board {
-  display: grid;
-  grid-template-rows: repeat(20, 30px);
-  grid-template-columns: repeat(10, 30px);
-  gap: 1px;
-  background-color: black;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #333;
 }
 
 .row {
-  display: contents;
+  display: flex;
 }
 
 .cell {
-  width: 30px;
-  height: 30px;
-  background-color: #222;
+  width: 20px;
+  height: 20px;
   border: 1px solid #333;
 }
 
+.cell.wall {
+  background-color: #555; /* Gray color for walls */
+}
+
 .cell.filled {
-  background-color: cyan; /* Change color based on the tetromino */
+  background-color: #ff0; /* Yellow color for tetrominos */
+}
+
+.score {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.game-over,
+.paused {
+  margin-top: 10px;
+  font-size: 24px;
+  color: red;
+}
+
+.restart-button,
+.pause-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+button {
+  /* big game buttons */
+
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }

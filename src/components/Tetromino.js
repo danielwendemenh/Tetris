@@ -1,28 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
-const tetrominoes = {
-  I: {
-    shape: [
-      [0, 0, 0, 0],
-      [1, 1, 1, 1],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-    ],
-    color: "cyan",
-  },
+const TETROMINOES = {
+  I: { shape: [[1, 1, 1, 1]], color: "cyan" },
   J: {
     shape: [
-      [0, 0, 0],
+      [2, 0, 0],
       [2, 2, 2],
-      [0, 0, 2],
     ],
     color: "blue",
   },
   L: {
     shape: [
-      [0, 0, 0],
+      [0, 0, 3],
       [3, 3, 3],
-      [3, 0, 0],
     ],
     color: "orange",
   },
@@ -37,7 +27,6 @@ const tetrominoes = {
     shape: [
       [0, 5, 5],
       [5, 5, 0],
-      [0, 0, 0],
     ],
     color: "green",
   },
@@ -45,7 +34,6 @@ const tetrominoes = {
     shape: [
       [0, 6, 0],
       [6, 6, 6],
-      [0, 0, 0],
     ],
     color: "purple",
   },
@@ -53,47 +41,36 @@ const tetrominoes = {
     shape: [
       [7, 7, 0],
       [0, 7, 7],
-      [0, 0, 0],
     ],
     color: "red",
   },
 };
 
-// Function to get a random Tetromino with default position
 export const randomTetromino = () => {
-  const tetrominoKeys = Object.keys(tetrominoes);
-  const randomKey =
-    tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)];
-
-  return {
-    ...tetrominoes[randomKey],
-    position: { x: Math.floor(10 / 2) - 1, y: 0 }, // Start in the middle at the top
-  };
+  const keys = Object.keys(TETROMINOES);
+  const key = keys[Math.floor(Math.random() * keys.length)];
+  return { ...TETROMINOES[key], position: { x: 3, y: 0 } }; // Start at x: 3
 };
 
-const Tetromino = () => {
-  const [currentTetromino, setCurrentTetromino] = useState(randomTetromino());
-
-  return (
-    <div className="tetromino">
-      {currentTetromino.shape.map((row, rowIndex) => (
-        <div key={rowIndex} className="row" style={{ display: "flex" }}>
-          {row.map((cell, colIndex) => (
-            <div
-              key={colIndex}
-              className="cell"
-              style={{
-                width: "20px",
-                height: "20px",
-                backgroundColor: cell ? currentTetromino.color : "transparent",
-                border: cell ? "1px solid black" : "none",
-              }}
-            ></div>
-          ))}
-        </div>
-      ))}
-    </div>
-  );
-};
+const Tetromino = ({ tetromino }) => (
+  <div className="tetromino">
+    {tetromino.shape.map((row, y) => (
+      <div key={y} className="row">
+        {row.map((cell, x) => (
+          <div
+            key={x}
+            className="cell"
+            style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: cell ? tetromino.color : "transparent",
+              border: cell ? "1px solid black" : "none",
+            }}
+          />
+        ))}
+      </div>
+    ))}
+  </div>
+);
 
 export default Tetromino;
