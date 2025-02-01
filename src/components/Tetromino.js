@@ -99,26 +99,3 @@ export const randomTetromino = () => {
   const key = keys[Math.floor(Math.random() * keys.length)];
   return { ...TETROMINOES[key], position: { x: 3, y: 0 } }; // Start at x: 3
 };
-
-const Tetromino = ({ tetromino }) => (
-  <div className="tetromino">
-    {tetromino.shape.map((row, y) => (
-      <div key={y} className="row">
-        {row.map((cell, x) => (
-          <div
-            key={x}
-            className="cell"
-            style={{
-              width: "20px",
-              height: "20px",
-              backgroundColor: cell ? tetromino.color : "transparent",
-              border: cell ? "1px solid black" : "none",
-            }}
-          />
-        ))}
-      </div>
-    ))}
-  </div>
-);
-
-export default Tetromino;

@@ -2,13 +2,69 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: Arial, sans-serif;
+  font-family: "Press Start 2P", cursive;
+  background-color: #282828;
+  color: white;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.game-title {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #ff6f00;
+  text-shadow: 4px 4px 6px rgba(255, 105, 0, 0.8);
+}
+
+.main-menu {
+  text-align: center;
+}
+
+.start-button {
+  background-color: #ff6f00; /* Orange */
+  border: 2px solid #ff4500;
+  color: white;
+  padding: 15px 32px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.start-button:hover {
+  background-color: #ff4500;
+}
+
+.menu-options {
+  margin-top: 20px;
+}
+
+.menu-item {
+  background-color: #333;
+  border: 1px solid #555;
+  color: white;
+  padding: 12px 24px;
+  font-size: 18px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: #444;
 }
 
 .tetris-board {
   display: flex;
   flex-direction: column;
-  border: 2px solid #333;
+  border: 4px solid #444;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  background-color: #222;
 }
 
 .row {
@@ -16,49 +72,60 @@
 }
 
 .cell {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border: 1px solid #333;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
 }
 
 .cell.wall {
   background-color: #555; /* Gray color for walls */
 }
 
-.cell.filled {
-  background-color: #ff0; /* Yellow color for tetrominos */
-}
-
 .score {
+  font-size: 24px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-weight: bold;
 }
 
 .game-over,
 .paused {
-  margin-top: 10px;
-  font-size: 24px;
+  font-size: 28px;
   color: red;
+  text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.7);
+  margin-top: 10px;
+}
+
+.game-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #ff6f00; /* Orange for a more vibrant feel */
+  border: 2px solid #ff4500; /* Slightly darker border */
+  color: white;
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff4500;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(2px);
 }
 
 .restart-button,
 .pause-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-button {
-  /* big game buttons */
-
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
+  font-size: 18px;
 }

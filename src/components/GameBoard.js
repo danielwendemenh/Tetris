@@ -4,6 +4,21 @@ import "./TetrisBoard.css";
 
 const WIDTH = 10;
 const HEIGHT = 20;
+const colors = {
+  1: "cyan",
+  2: "blue",
+  3: "orange",
+  4: "yellow",
+  5: "green",
+  6: "purple",
+  7: "red",
+  8: "pink",
+  9: "brown",
+  10: "teal",
+  11: "gold",
+  12: "lime",
+  13: "maroon",
+};
 
 // Create an empty board
 const createBoard = () =>
@@ -132,24 +147,15 @@ const GameBoard = () => {
   const handleKey = useCallback(
     (e) => {
       if (!gameStarted || gameOver || isPaused) return;
+
       const actions = {
         ArrowLeft: () => moveTetromino(-1, 0),
         ArrowRight: () => moveTetromino(1, 0),
         ArrowDown: () => moveTetromino(0, 1),
         ArrowUp: rotateTetromino,
-        " ": () => {
-          while (
-            !checkCollision(
-              tetromino.position.x,
-              tetromino.position.y + 1,
-              tetromino.shape
-            )
-          ) {
-            moveTetromino(0, 1);
-          }
-        },
         p: () => setIsPaused((prev) => !prev),
       };
+
       if (actions[e.key]) actions[e.key]();
     },
     [
@@ -160,6 +166,7 @@ const GameBoard = () => {
       rotateTetromino,
       tetromino,
       checkCollision,
+      placeTetromino,
     ]
   );
 
@@ -177,7 +184,6 @@ const GameBoard = () => {
     }
   }, [gameStarted, gameOver, isPaused, moveTetromino]);
 
-  // Combine the board and the current tetromino for rendering
   const renderBoard = useCallback(() => {
     const newBoard = board.map((row) => [...row]);
     if (tetromino) {
@@ -187,7 +193,7 @@ const GameBoard = () => {
             const y = tetromino.position.y + dy;
             const x = tetromino.position.x + dx;
             if (y >= 0 && y < HEIGHT && x >= 0 && x < WIDTH) {
-              newBoard[y][x] = cell;
+              newBoard[y][x] = cell; // Use the tetromino color
             }
           }
         })
@@ -199,9 +205,17 @@ const GameBoard = () => {
   return (
     <div className="tetris-game">
       {!gameStarted ? (
-        <button className="start-button" onClick={startGame}>
-          Start Game
-        </button>
+        <div className="main-menu">
+          <h1 className="game-title">Tetris</h1>
+          <button className="start-button" onClick={startGame}>
+            Start Game
+          </button>
+          <div className="menu-options">
+            <button className="menu-item">Last Scores</button>
+            <button className="menu-item">Settings</button>
+            <button className="menu-item">About</button>
+          </div>
+        </div>
       ) : (
         <>
           <div className="score">Score: {score}</div>
@@ -210,16 +224,39 @@ const GameBoard = () => {
           <div className="tetris-board">
             {renderBoard().map((row, y) => (
               <div key={y} className="row">
-                {row.map((cell, x) => (
-                  <div key={x} className={`cell ${cell ? "filled" : ""}`} />
-                ))}
+                {row.map((cell, x) => {
+                  let color = null;
+                  if (cell) {
+                    // If the cell is part of a tetromino, assign the color
+                    color = colors[cell] ?? tetromino.color;
+                  }
+                  return (
+                    <div
+                      key={x}
+                      className="cell"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: color || "transparent", // Use the tetromino color
+                        border: cell ? "1px solid black" : "none",
+                      }}
+                    />
+                  );
+                })}
               </div>
             ))}
           </div>
-          <button onClick={startGame}>Restart</button>
-          <button onClick={() => setIsPaused((prev) => !prev)}>
-            {isPaused ? "Resume" : "Pause"}
-          </button>
+          <div className="game-buttons">
+            <button onClick={startGame} className="restart-button">
+              Restart
+            </button>
+            <button
+              onClick={() => setIsPaused((prev) => !prev)}
+              className="pause-button"
+            >
+              {isPaused ? "Resume" : "Pause"}
+            </button>
+          </div>
         </>
       )}
     </div>
