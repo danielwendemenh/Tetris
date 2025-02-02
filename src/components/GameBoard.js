@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { randomTetromino } from "./Tetromino";
-import "./TetrisBoard.css";
+import { FaPause } from "react-icons/fa"; // Import pause icon
+import "./GameBoard.css";
 
 const WIDTH = 10;
 const HEIGHT = 20;
@@ -202,62 +203,98 @@ const GameBoard = () => {
     return newBoard;
   }, [board, tetromino]);
 
+  const handlePause = () => {
+    setIsPaused((prev) => !prev);
+  };
+
+  const goToMainMenu = () => {
+    setGameStarted(false);
+    setIsPaused(false);
+    setGameOver(false);
+  };
+
   return (
     <div className="tetris-game">
       {!gameStarted ? (
         <div className="main-menu">
           <h1 className="game-title">Tetris</h1>
+          <p className="difficulty-notice">
+            Increase difficulty in settings before starting!
+          </p>
           <button className="start-button" onClick={startGame}>
             Start Game
           </button>
           <div className="menu-options">
             <button className="menu-item">Last Scores</button>
             <button className="menu-item">Settings</button>
-            <button className="menu-item">About</button>
           </div>
         </div>
       ) : (
-        <>
-          <div className="score">Score: {score}</div>
-          {gameOver && <div className="game-over">Game Over!</div>}
-          {isPaused && <div className="paused">Paused</div>}
-          <div className="tetris-board">
-            {renderBoard().map((row, y) => (
-              <div key={y} className="row">
-                {row.map((cell, x) => {
-                  let color = null;
-                  if (cell) {
-                    // If the cell is part of a tetromino, assign the color
-                    color = colors[cell] ?? tetromino.color;
-                  }
-                  return (
-                    <div
-                      key={x}
-                      className="cell"
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: color || "transparent", // Use the tetromino color
-                        border: cell ? "1px solid black" : "none",
-                      }}
-                    />
-                  );
-                })}
+        <div style={{ display: "flex", gap: "10px" }}>
+          {/* Pause Button */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <button className="pause-icon" onClick={handlePause}>
+                <FaPause />
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div className="score">Score: {score}</div>
+            {gameOver && <div className="game-over">Game Over!</div>}
+
+            {/* Overlay Menu when Paused */}
+            {(gameOver || isPaused) && (
+              <div className="pause-menu-overlay">
+                <div className="pause-menu">
+                  <h2>Paused</h2>
+                  <button onClick={handlePause} className="resume-button">
+                    Resume
+                  </button>
+                  <button onClick={startGame} className="restart-button">
+                    Restart
+                  </button>
+                  <button onClick={goToMainMenu} className="menu-button">
+                    Main Menu
+                  </button>
+                </div>
               </div>
-            ))}
+            )}
+            {/* Game Board */}
+            <div className="tetris-board">
+              {renderBoard().map((row, y) => (
+                <div key={y} className="row">
+                  {row.map((cell, x) => {
+                    let color = null;
+                    if (cell) {
+                      // If the cell is part of a tetromino, assign the color
+                      color = colors[cell] ?? tetromino.color;
+                    }
+                    return (
+                      <div
+                        key={x}
+                        className="cell"
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          backgroundColor: color || "transparent", // Use the tetromino color
+                          border: cell ? "1px solid black" : "none",
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="game-buttons">
-            <button onClick={startGame} className="restart-button">
-              Restart
-            </button>
-            <button
-              onClick={() => setIsPaused((prev) => !prev)}
-              className="pause-button"
-            >
-              {isPaused ? "Resume" : "Pause"}
-            </button>
-          </div>
-        </>
+        </div>
       )}
     </div>
   );
