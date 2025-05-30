@@ -3,21 +3,7 @@
   "version": "1.0.0",
   "description": "A modern web-based Tetris game built with React.",
   "private": false,
-  "author": {
-    "name": "Daniel Wendemenh",
-    "email": "your-email@example.com",
-    "url": "https://danielwende.com"
-  },
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/danielwendemenh/Tetris.git"
-  },
-  "homepage": "https://danielwendemenh.github.io/Tetris",
-  "bugs": {
-    "url": "https://github.com/danielwendemenh/Tetris/issues",
-    "email": "your-email@example.com"
-  },
   "dependencies": {
     "cra-template": "1.2.0",
     "react": "^19.0.0",
