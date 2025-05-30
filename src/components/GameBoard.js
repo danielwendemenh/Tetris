@@ -274,7 +274,6 @@ const GameBoard = () => {
                   {row.map((cell, x) => {
                     let color = null;
                     if (cell) {
-                      // If the cell is part of a tetromino, assign the color
                       color = colors[cell] ?? tetromino.color;
                     }
                     return (
@@ -284,7 +283,7 @@ const GameBoard = () => {
                         style={{
                           width: "20px",
                           height: "20px",
-                          backgroundColor: color || "transparent", // Use the tetromino color
+                          backgroundColor: color || "transparent",
                           border: cell ? "1px solid black" : "none",
                         }}
                       />
@@ -292,6 +291,17 @@ const GameBoard = () => {
                   })}
                 </div>
               ))}
+            </div>
+
+            {/* Mobile touch controls */}
+            <div className="mobile-controls">
+              <button onTouchStart={() => moveTetromino(-1, 0)}>◀</button>
+              <button onTouchStart={() => moveTetromino(1, 0)}>▶</button>
+              <button onTouchStart={() => moveTetromino(0, 1)}>▼</button>
+              <button onTouchStart={rotateTetromino}>⟳</button>
+              <button onTouchStart={handlePause}>
+                {isPaused ? "▶︎ Resume" : "❚❚ Pause"}
+              </button>
             </div>
           </div>
         </div>
