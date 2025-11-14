@@ -4,6 +4,7 @@
   "description": "A modern web-based Tetris game built with React.",
   "private": false,
   "license": "MIT",
+  "homepage":"/tetris/",
   "dependencies": {
     "cra-template": "1.2.0",
     "react": "^19.0.0",
